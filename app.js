@@ -1,5 +1,35 @@
+//Funcion para javascript
+document.addEventListener("DOMContentLoaded", function(){
+
+
+
 //Imprime un mensaje de bienvenida en la consola
 console.log("Sistema de regristo EBAC");
+
+// Var utilizada para llamar los botones y agregar sus funciones
+var form = document.getElementById("registration-form");
+var addButton = document.getElementById("add-button");
+var consultButton = document.getElementById("consult-button");
+var deleteButton = document.getElementById("delete-button");
+
+//funcion para agregar alumno
+form.addEventListener("submit", agregarAlumno);
+
+//Modificacion para ocultar el formulario
+form.style.display="none";
+
+//Modificacion para mostrar formulario al seleccionar agregar registro
+addButton.addEventListener("click", function(event){
+    form.style.display = "flex"
+})
+
+//funcion al dar click para consultar registro
+consultButton.addEventListener("click", consultarRegistros);
+
+//funcion al dar click para eleminar registro
+deleteButton.addEventListener("click", eliminarAlumno);
+
+
 
 // Se define un arreglo de registro con datos de alumnos
 var registro = [
@@ -12,14 +42,18 @@ var registro = [
     ];
 
     // 1: Se agrego la funcion agregar/incluir un nuevo alumno al registro.
-function agregarAlumno(){
+function agregarAlumno(event){
     
+    //Funcion para tener el manejo de los eventos
+    event.preventDefault();
+
     //Se solicita informacion al usuario para el registro de un nuevo alumno
-    var nombre = prompt("Ingresa el nombre del nuevo alumno");
-    var zonaResidencia = prompt("Ingrese la zona de residencia del alumno");
-    var edad = prompt("Ingresa la edad del alumno");
-    var nombrePrograma = prompt("Ingresa el programa a estudiar del alumno");
-    var email = prompt("Ingresa el correo electronico del alumno");
+    //Se le agrego los identificadores
+    var nombre = document.getElementById("name-input").value;
+    var zonaResidencia = document.getElementById("residence-input").value;
+    var edad = document.getElementById("age-input").value;
+    var nombrePrograma = document.getElementById("course-input").value;
+    var email = document.getElementById("email-input").value;
 
     //Crea un objeto que se llama nuevoAlumno con los datos ingresados
     var nuevoAlumno  = {nombre:  nombre, zonaResidencia:  zonaResidencia, edad:  edad, nombrePrograma:  nombrePrograma, email:  email};
@@ -27,12 +61,22 @@ function agregarAlumno(){
     //Agrega la informacion nuevoAlumno al arreglo
     registro.push(nuevoAlumno);
 
+    //funcion para borrar los datos despues de agregar un nuevo registro
+
+    var nombre = document.getElementById("name-input").value = "";
+    var zonaResidencia = document.getElementById("residence-input").value = "";
+    var edad = document.getElementById("age-input").value = "";
+    var nombrePrograma = document.getElementById("course-input").value = "";
+    var email = document.getElementById("email-input").value = "";
+
+    form.style.display = "none";
+
 }
 // Se agrego la funcion consultar los registros ya guardados con anteriodidad
 function consultarRegistros(){
 
     //Este ciclo for itera sobre cada uno de los registros del arreglo
-    for(var i = 0; i < registro.length; i++){
+   /* for(var i = 0; i < registro.length; i++){
 
     //Esta lista de console.log permite ver al usuario el registro en la consola
     console.log("Nombre:  " + registro[i].nombre);
@@ -41,6 +85,10 @@ function consultarRegistros(){
     console.log("Nombre del programa:  " + registro[i].nombrePrograma);
     console.log("Correo electronico:  " + registro[i].email);
     };
+    */
+
+    //Impreme el resultado en formato de tabla
+   console.table(registro);
 };
 
 //Esta funcion permite generar un nuevo arreglo que no contenga la informacion del alumno deseado
@@ -55,13 +103,13 @@ function eliminarAlumno(){
 
 
 //ciclo do while permite repetir el menu cuando es indicado hasta que no se cumpla la condicion
-do{
+//do{
 
     //Variable que toma la eleccion del usuario para ejecutar la funcion indicada
-var opcion = prompt("Seleccionar una opcion: \n1. Agregar registro. \n2. Consultar registro de alumnos. \n3 Eliminar registro \n4 Salir");
+    //var opcion = prompt("Seleccionar una opcion: \n1. Agregar registro. \n2. Consultar registro de alumnos. \n3 Eliminar registro \n4 Salir");
 
 //Se declara este if para dar a elegir al usuario la opcion que quiera
-if(opcion === "1"){
+/*if(opcion === "1"){
     agregarAlumno();
 } else if (opcion === "2"){
     consultarRegistros();
@@ -78,4 +126,5 @@ var continuar = prompt("¿Desea hacer otra acción?(S/N)");
 
 //While que se encarga de cerrar el ciclo
 } while(continuar === "s");
-
+*/
+})
